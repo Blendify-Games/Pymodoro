@@ -1,0 +1,13 @@
+{
+    "name": "tomato",
+    "boing": {
+        "frames": [0, 1],
+        "delta": [500, 500],
+        "repeat": true
+    },
+    "blink": {
+        "frames": [0, 2],
+        "delta": [3000, 250],
+        "repeat": true
+    }
+}
