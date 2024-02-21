@@ -3,7 +3,7 @@ import event_handler as evth
 import pygame
 
 from pomodoro import Pomodoro
-from sprites import Tomato
+from sprites import Tomato, ArrowUpButton, ArrowDownButton
 
 class Scene():
     def __init__(self, screen: pygame.Surface, name: str):
@@ -21,6 +21,10 @@ class SetupPomodoroScene(Scene):
         super().__init__(screen, 'Setup Pomodoro')
         self.rendergp = pygame.sprite.Group()
         self.tomato = Tomato(self.rendergp)
+        self.button_up = ArrowUpButton(self.rendergp)
+        self.button_up.rect.topleft = (150, 100)
+        self.button_down = ArrowDownButton(self.rendergp)
+        self.button_down.rect.topleft = (150, 135)
         sw, sh = config.SCREEN_SIZE
         self.tomato.rect.center = sw//2, sh//2
     def build(self):
