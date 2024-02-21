@@ -1,6 +1,6 @@
 # Sprite Guide
 
-This is a simple sprite guide to build a sprite for Pymodoro. The default "tomato" sprite is built using the **aseprite** software. You are free to modify and redistribute this sprite, but remind to put credits to "Vinícius Maciel" and link to the original repository on github.
+This is a simple sprite guide to build a sprite for Pymodoro. The default "tomato" sprite is built using the **aseprite** software. You are free to modify and redistribute this sprite, but remind to put credits to "Blendify Games" and link to the original repository on github.
 
 The sprite consists of two files. One of them is the image containing the frames of the animation. The sprite image sheet can be "unique row", or "multiple rows", format. The frame index count begin as 0 at topleft to N at bottomright. Both JSON and sheet must have the same name.
 
