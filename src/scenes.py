@@ -3,6 +3,7 @@ import event_handler as evth
 import pygame
 
 from pomodoro import Pomodoro
+from sprites import Tomato
 
 class Scene():
     def __init__(self, screen: pygame.Surface, name: str):
@@ -18,10 +19,17 @@ class Scene():
 class SetupPomodoroScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen, 'Setup Pomodoro')
+        self.rendergp = pygame.sprite.Group()
+        self.tomato = Tomato(self.rendergp)
+        sw, sh = config.SCREEN_SIZE
+        self.tomato.rect.center = sw//2, sh//2
     def build(self):
         self.screen.fill((100, 0, 0))
     def update(self):
-        pass
+        self.screen.fill((100, 0, 0))
+        self.rendergp.update()
+        self.rendergp.draw(self.screen)
+        pygame.display.flip()
    
 class ShowPomodoroScene(Scene):
     def __init__(self, screen: pygame.Surface):

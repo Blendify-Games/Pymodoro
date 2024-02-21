@@ -1,13 +1,16 @@
 {
     "name": "tomato",
+    "frame_size": [32, 32],
     "boing": {
         "frames": [0, 1],
         "delta": [500, 500],
-        "repeat": true
+        "repeat": [3, 10],
+        "next_state": "blink"
     },
     "blink": {
-        "frames": [0, 2],
-        "delta": [3000, 250],
-        "repeat": true
+        "frames": [2, 0],
+        "delta": [250, 3000],
+        "repeat": [2, 15],
+        "next_state": "boing"
     }
 }
