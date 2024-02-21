@@ -46,7 +46,6 @@ class _SpriteFSM(pygame.sprite.Sprite):
         )
         self.frames = _tiledsurf_slice_from_path(
                         self.sprinfo['imgpath'], frame_size, scale)
-        print(self.frames)
         # set first image as default to avoid problems
         self.image = self.frames[0]
         self.rect = self.image.get_rect()

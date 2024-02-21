@@ -19,6 +19,8 @@ class Scene():
 class SetupPomodoroScene(Scene):
     def __init__(self, screen: pygame.Surface):
         super().__init__(screen, 'Setup Pomodoro')
+        pygame.mixer.music.load(config.get_clair_de_lune_res())
+        pygame.mixer.music.play(loops=-1)
         self.rendergp = pygame.sprite.Group()
         self.tomato = Tomato(self.rendergp)
         self.button_up = ArrowUpButton(self.rendergp)
