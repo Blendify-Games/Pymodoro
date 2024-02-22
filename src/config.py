@@ -17,8 +17,11 @@ MUSDIR          = os.path.join(RESDIR, 'musics')
 def get_caption() -> str:
     return f'{APP_NAME} ({APP_VERSION}) by {APP_DEV}'
 
-def get_font_path() -> str:
+def get_04b_30_font_res() -> str:
     return os.path.join(FONTDIR, '04b_30', '04B_30__.TTF')
+
+def get_number_imgfont_res() -> str:
+    return os.path.join(FONTDIR, 'numbers.png')
 
 def get_clair_de_lune_res() -> str:
     return os.path.join(MUSDIR, f'clair_de_lune.ogg')
@@ -28,6 +31,9 @@ def get_button_sound_res(nref:int) -> str:
 
 def get_buttons_res() -> str:
     return os.path.join(SPRDIR, 'buttons.png')
+
+def get_field_res() -> str:
+    return os.path.join(SPRDIR, 'field.png')
 
 def get_sprite_res(name:str) -> dict:
     '''get a dict containing sprite information like animation

@@ -3,7 +3,8 @@ import event_handler as evth
 import pygame
 
 from pomodoro import Pomodoro
-from sprites import Tomato, ArrowUpButton, ArrowDownButton
+from sprites import Tomato
+from gui import NaturalNumberSelector
 
 class Scene():
     def __init__(self, screen: pygame.Surface, name: str):
@@ -23,10 +24,20 @@ class SetupPomodoroScene(Scene):
         pygame.mixer.music.play(loops=-1)
         self.rendergp = pygame.sprite.Group()
         self.tomato = Tomato(self.rendergp)
-        self.button_up = ArrowUpButton(self.rendergp)
-        self.button_up.rect.topleft = (150, 100)
-        self.button_down = ArrowDownButton(self.rendergp)
-        self.button_down.rect.topleft = (150, 135)
+        self.nnField1 = NaturalNumberSelector(self.rendergp)
+        self.nnField1.setValue(25)
+        self.nnField1.setPos(96, 96)
+        self.nnField1.setMinValue(1)
+        self.nnField2 = NaturalNumberSelector(self.rendergp)
+        self.nnField2.setValue(5)
+        self.nnField2.setPos(320, 96)
+        self.nnField2.setMinValue(1)
+        self.nnField3 = NaturalNumberSelector(self.rendergp)
+        self.nnField3.setValue(0)
+        self.nnField3.setPos(544, 96)
+        self.nnField4 = NaturalNumberSelector(self.rendergp)
+        self.nnField4.setValue(0)
+        self.nnField4.setPos(768, 96)
         sw, sh = config.SCREEN_SIZE
         self.tomato.rect.center = sw//2, sh//2
     def build(self):
@@ -63,7 +74,7 @@ class __SceneLoop():
         self.clock = pygame.time.Clock()
     def __stop(self):
         self.__runningScene = None
-    def setScene(self, SceneClass: 'class(Scene)'):
+    def setScene(self, SceneClass: 'Scene.__class__'):
         self.__runningScene = SceneClass(self.screen)
         self.__run()
     def __run(self):
@@ -75,5 +86,5 @@ class __SceneLoop():
 
 _SCENE_LOOP = __SceneLoop()
 
-def boot_scene(SceneClass: 'class(Scene)'):
+def boot_scene(SceneClass: 'Scene.__class__'):
     _SCENE_LOOP.setScene(SceneClass)
