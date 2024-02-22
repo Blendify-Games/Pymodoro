@@ -32,6 +32,9 @@ def get_button_sound_res(nref:int) -> str:
 def get_buttons_res() -> str:
     return os.path.join(SPRDIR, 'buttons.png')
 
+def get_startbutton_res() -> str:
+    return os.path.join(SPRDIR, 'startbutton.png')
+
 def get_field_res() -> str:
     return os.path.join(SPRDIR, 'field.png')
 

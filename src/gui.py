@@ -7,7 +7,8 @@ from event_handler import (
 )
 from config import (
     get_buttons_res, get_button_sound_res, 
-    get_field_res, get_number_imgfont_res
+    get_field_res, get_number_imgfont_res,
+    get_startbutton_res
 )
 from util import tiledsurf_slice_from_path
 
@@ -136,6 +137,8 @@ class NaturalNumberField(pygame.sprite.Sprite):
         if not self.__minValue <= self.__value < self.__maxValue:
             self.__value = self.__minValue
             self.__render()
+    def getValue(self) -> int:
+        return self.__value
 
 class NaturalNumberSelector():
     def __init__(self, *groups):
@@ -152,7 +155,7 @@ class NaturalNumberSelector():
         auph = self.arrowUp.rect.height
         self.arrowDown.rect.topleft = (x + nnfw, y + auph + 6)
     def getValue(self) -> int:
-        return self.nnField.value
+        return self.nnField.getValue()
     def setValue(self, value:int):
         '''value must be 0 <= value < 100'''
         self.nnField.setValue(value)
@@ -162,3 +165,28 @@ class NaturalNumberSelector():
     def setMinValue(self, minValue: int):
         '''minValue must be 0 <= minValue < 100'''
         self.nnField.setMinValue(minValue)
+
+_STARTBUTTON_FRAMES = None
+def _get_startbutton_frames() -> 'SurfList':
+    global _STARTBUTTON_FRAMES
+    if not _STARTBUTTON_FRAMES:
+        _STARTBUTTON_FRAMES = tiledsurf_slice_from_path(
+            get_startbutton_res(), (32, 32), 4
+        )
+    return _STARTBUTTON_FRAMES
+
+_S_BUTTON_SOUND = None
+def _get_start_button_sound() -> pygame.mixer.Sound:
+    global _S_BUTTON_SOUND
+    if not _S_BUTTON_SOUND:
+        _S_BUTTON_SOUND = pygame.mixer.Sound(get_button_sound_res(2))
+    return _S_BUTTON_SOUND
+
+class StartButton(_Button):
+    def __init__(self, *groups):
+        self.sound = _get_start_button_sound()
+        frames = _get_startbutton_frames()
+        super().__init__(frames[0], frames[1], *groups)
+    def onButtonDown(self):
+        super().onButtonDown()
+        self.sound.play()

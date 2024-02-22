@@ -4,7 +4,7 @@ import pygame
 
 from pomodoro import Pomodoro
 from sprites import Tomato
-from gui import NaturalNumberSelector
+from gui import NaturalNumberSelector, StartButton
 
 class Scene():
     def __init__(self, screen: pygame.Surface, name: str):
@@ -39,6 +39,17 @@ class SetupPomodoroScene(Scene):
         self.nnField4.setPos(768, 96)
         sw, sh = config.SCREEN_SIZE
         self.tomato.rect.center = sw//2, sh//2
+        self.startButton = StartButton(self.rendergp)
+        self.startButton.rect.bottomright = (sw - 32, sh - 32)
+        self.startButton.setButtonUpListener(self.gotoNextScene)
+    def gotoNextScene(self):
+        pygame.mixer.music.fadeout(1000)
+        self.rendergp.empty()
+        boot_scene(
+            ShowPomodoroScene, 
+            (self.nnField1.getValue(), self.nnField2.getValue(), 
+             self.nnField3.getValue(), self.nnField4.getValue())
+        )
     def build(self):
         self.screen.fill((100, 0, 0))
     def update(self):
@@ -48,10 +59,10 @@ class SetupPomodoroScene(Scene):
         pygame.display.flip()
    
 class ShowPomodoroScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, pomodoro_params:tuple):
         super().__init__(screen, 'Show Pomodoro')
         self.rendergp = pygame.sprite.Group()
-        self.pomodoro = Pomodoro(25,5,2,10, self.rendergp)
+        self.pomodoro = Pomodoro(*pomodoro_params, self.rendergp)
     def build(self):
         self.screen.fill((100, 0, 0))
     def update(self):
@@ -73,8 +84,8 @@ class __SceneLoop():
         self.clock = pygame.time.Clock()
     def __stop(self):
         self.__runningScene = None
-    def setScene(self, SceneClass: 'Scene.__class__'):
-        self.__runningScene = SceneClass(self.screen)
+    def setScene(self, SceneClass: 'Scene.__class__', *args):
+        self.__runningScene = SceneClass(self.screen, *args)
         self.__run()
     def __run(self):
         while self.__runningScene:
@@ -85,5 +96,5 @@ class __SceneLoop():
 
 _SCENE_LOOP = __SceneLoop()
 
-def boot_scene(SceneClass: 'Scene.__class__'):
-    _SCENE_LOOP.setScene(SceneClass)
+def boot_scene(SceneClass: 'Scene.__class__', *args):
+    _SCENE_LOOP.setScene(SceneClass, *args)
