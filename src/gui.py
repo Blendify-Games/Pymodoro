@@ -107,28 +107,35 @@ class NaturalNumberField(pygame.sprite.Sprite):
         self.imgbkg = pygame.image.load(get_field_res())
         self.image = self.imgbkg.copy()
         self.rect = self.image.get_rect()
-        self.value = 0
-        self.__maxValue = 100
+        self.__value = 0
+        self.__maxValue = 99
         self.__minValue = 0
-    def inc(self):
-        if self.value + 1 < self.__maxValue:
-            self.value += 1
-    def dec(self):
-        if self.value > self.__minValue:
-            self.value -= 1
-    def setValue(self, value:int):
-        self.value = value if self.__minValue < value < self.__maxValue  else 0
-    def setMaxValue(self, maxValue: int):
-        self.__maxValue = maxValue if 0 < maxValue < 100 else 100
-    def setMinValue(self, minValue: int):
-        self.__minValue = minValue if 0 < minValue < 100 else 0
-    def update(self):
-        vstr = f'{self.value:02}'
+        self.setValue(self.__minValue)
+    def __render(self):
+        vstr = f'{self.__value:02}'
         num1 = self.numbers[int(vstr[0])]
         num2 = self.numbers[int(vstr[1])]
         self.image = self.imgbkg.copy()
         self.image.blit(num1, (4, 4))
         self.image.blit(num2, (60, 4))
+    def inc(self):
+        self.setValue(self.__value + 1)
+    def dec(self):
+        self.setValue(self.__value - 1)
+    def setValue(self, value:int):
+        if self.__minValue <= value <= self.__maxValue:
+            self.__value = value
+            self.__render()
+    def setMaxValue(self, maxValue: int):
+        self.__maxValue = maxValue if 0 < maxValue <= 99 else 99
+        if not self.__minValue <= self.__value < self.__maxValue:
+            self.__value = self.__minValue
+            self.__render()
+    def setMinValue(self, minValue: int):
+        self.__minValue = minValue if 0 <= minValue < 99 else 0
+        if not self.__minValue <= self.__value < self.__maxValue:
+            self.__value = self.__minValue
+            self.__render()
 
 class NaturalNumberSelector():
     def __init__(self, *groups):
@@ -147,11 +154,11 @@ class NaturalNumberSelector():
     def getValue(self) -> int:
         return self.nnField.value
     def setValue(self, value:int):
-        '''value must be 0 < value < 100'''
+        '''value must be 0 <= value < 100'''
         self.nnField.setValue(value)
     def setMaxValue(self, maxValue: int):
         '''maxValue must be 0 < maxValue < 100'''
         self.nnField.setMaxValue(maxValue)
     def setMinValue(self, minValue: int):
-        '''minValue must be 0 < minValue < 100'''
+        '''minValue must be 0 <= minValue < 100'''
         self.nnField.setMinValue(minValue)
