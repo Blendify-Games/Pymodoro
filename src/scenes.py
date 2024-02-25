@@ -4,7 +4,10 @@ import pygame
 
 from pomodoro import Pomodoro
 from sprites import Tomato
-from gui import NaturalNumberSelector, StartButton
+from gui import (
+    ChatBalloon, NaturalNumberSelector, 
+    StartButton, Label
+)
 
 class Scene():
     def __init__(self, screen: pygame.Surface, name: str):
@@ -22,8 +25,14 @@ class SetupPomodoroScene(Scene):
         super().__init__(screen, 'Setup Pomodoro')
         pygame.mixer.music.load(config.get_clair_de_lune_res())
         pygame.mixer.music.play(loops=-1)
+        
+        sw, sh = config.SCREEN_SIZE
+
         self.rendergp = pygame.sprite.Group()
+
         self.tomato = Tomato(self.rendergp)
+        self.tomato.rect.center = sw//2, sh//2
+
         self.nnField1 = NaturalNumberSelector(self.rendergp)
         self.nnField1.setValue(25)
         self.nnField1.setMinValue(1)
@@ -37,10 +46,28 @@ class SetupPomodoroScene(Scene):
         self.nnField3.setPos(544, 96)
         self.nnField4 = NaturalNumberSelector(self.rendergp)
         self.nnField4.setPos(768, 96)
-        sw, sh = config.SCREEN_SIZE
-        self.tomato.rect.center = sw//2, sh//2
+        
+        self.cballoon = ChatBalloon(config.get_string('lt-balloon'), self.rendergp)
+        self.cballoon.setPos(32, 576)
+
+        self.label1 = Label(config.get_string('worktime'), 
+                            (255, 215, 0), self.rendergp)
+        self.label1.setPos(100, 70)
+
+        self.label2 = Label(config.get_string('breaktime'), 
+                            (255, 215, 0), self.rendergp)
+        self.label2.setPos(324, 70)
+
+        self.label3 = Label(config.get_string('cblbreak'), 
+                            (255, 215, 0), self.rendergp)
+        self.label3.setPos(548, 70)
+
+        self.label4 = Label(config.get_string('lbtime'), 
+                            (255, 215, 0), self.rendergp)
+        self.label4.setPos(772, 70)
+
         self.startButton = StartButton(self.rendergp)
-        self.startButton.rect.bottomright = (sw - 32, sh - 32)
+        self.startButton.rect.bottomright = (sw - 32, sh - 48)
         self.startButton.setButtonUpListener(self.gotoNextScene)
     def gotoNextScene(self):
         pygame.mixer.music.fadeout(1000)

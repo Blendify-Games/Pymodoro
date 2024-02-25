@@ -8,8 +8,10 @@ from event_handler import (
 from config import (
     get_buttons_res, get_button_sound_res, 
     get_field_res, get_number_imgfont_res,
-    get_startbutton_res
+    get_startbutton_res, get_pixeloid_font_res,
+    get_pixeloid_light_font_res
 )
+from sprites import SpriteFSM
 from util import tiledsurf_slice_from_path
 
 class _Button(pygame.sprite.Sprite):
@@ -190,3 +192,69 @@ class StartButton(_Button):
     def onButtonDown(self):
         super().onButtonDown()
         self.sound.play()
+
+class _ChatBalloonText(pygame.sprite.Sprite):
+    def __init__(self, text, maxwh):
+        super().__init__()
+        font = pygame.font.Font(get_pixeloid_font_res())
+        self.tsurf = font.render(
+            text, True, (0,0,0), wraplength=maxwh[0]
+        )
+        self.tsurfRect = self.tsurf.get_rect()
+        if self.tsurfRect.height > maxwh[1]:
+            self.ssrect = pygame.Rect(0, 0, *maxwh)
+        else:
+            self.ssrect = self.tsurfRect
+        self.image = self.tsurf.subsurface(self.ssrect)
+        self.rect = self.image.get_rect()
+    def rollDown(self):
+        if self.ssrect.bottom + 30 < self.tsurfRect.bottom:
+            self.ssrect.move_ip(0, 30)
+        else:
+            self.ssrect.bottom = self.tsurfRect.bottom
+        self.image = self.tsurf.subsurface(self.ssrect)
+    def rollUp(self):
+        if self.ssrect.top - 30 > 0:
+            self.ssrect.move_ip(0, -30)
+        else:
+            self.ssrect.top = 0
+        self.image = self.tsurf.subsurface(self.ssrect)
+
+class ChatBalloon(SpriteFSM):
+    def __init__(self, text:str, *groups):
+        super().__init__('chatballoon', 2, 'open', *groups)
+        self.text = _ChatBalloonText(text, 
+                        (self.rect.width - 16, self.rect.height - 16))
+
+        self.rendergps = groups
+
+        self.arrowup = ArrowUpButton()
+        self.arrowup.setButtonDownListener(self.text.rollUp)
+        self.arrowdown = ArrowDownButton()
+        self.arrowdown.setButtonDownListener(self.text.rollDown)
+
+        self.time = pygame.time.get_ticks()
+        self.setPos(0, 0)
+    def setPos(self, x, y):
+        self.rect.topleft = (x, y)
+        tr = self.rect.topright
+        self.arrowup.rect.topleft = (tr[0], tr[1])
+        self.arrowdown.rect.topleft = (tr[0], tr[1]+32)
+        self.text.rect.topleft = (x + 16, y + 8)
+    def update(self):
+        super().update()
+        dt = pygame.time.get_ticks() - self.time
+        if dt > 100*15:
+            for g in self.rendergps:
+                g.add(self.arrowdown)
+                g.add(self.arrowup)
+                g.add(self.text)
+
+class Label(pygame.sprite.Sprite):
+    def __init__(self, text, color, *groups):
+        super().__init__(*groups)
+        font = pygame.font.Font(get_pixeloid_light_font_res())
+        self.image = font.render(text, True, color)
+        self.rect = self.image.get_rect()
+    def setPos(self, x, y):
+        self.rect.topleft = (x, y)

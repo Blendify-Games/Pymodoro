@@ -1,13 +1,13 @@
 import pygame
 import datetime
 
-from config import get_04b_30_font_res
+from config import get_pixeloid_font_res
 from config import SCREEN_SIZE
 
 class _PomodoroTimeText(pygame.sprite.Sprite):
     def __init__(self, group):
         pygame.sprite.Sprite.__init__(self, group)
-        self.font = pygame.font.Font(get_04b_30_font_res(), size=50)
+        self.font = pygame.font.Font(get_pixeloid_font_res(), size=50)
         self.setTime('00:00')
     def setTime(self, time):
         self.image = self.font.render(time, False, (255, 255, 255))

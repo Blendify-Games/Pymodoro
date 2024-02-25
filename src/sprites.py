@@ -4,7 +4,7 @@ from config import get_sprite_res
 from random import randint
 from util import tiledsurf_slice_from_path
 
-class _SpriteFSM(pygame.sprite.Sprite):
+class SpriteFSM(pygame.sprite.Sprite):
     def __init__(self, res_name:str, scale=1, first_anim:str='idle', *groups):
         super().__init__(*groups)
         self.sprinfo = get_sprite_res(res_name)
@@ -21,6 +21,7 @@ class _SpriteFSM(pygame.sprite.Sprite):
         self.stepIndex = None
         self.stateDelta = None
         self.stateRepeat = None
+        self.running = False
         self.__time = None
         self.callState(first_anim)
     def __nextFrame(self):
@@ -34,6 +35,7 @@ class _SpriteFSM(pygame.sprite.Sprite):
                 self.callState(self.sprinfo[self.state]['next_state'])
                 return
             else:
+                self.running = False
                 return
         self.image = self.frames[fref[self.stepIndex]]
         self.stateDelta = self.sprinfo[self.state]['delta'][self.stepIndex]
@@ -47,13 +49,14 @@ class _SpriteFSM(pygame.sprite.Sprite):
                 self.stateRepeat = randint(repeat[0], repeat[1])
             else:
                 self.stateRepeat = repeat
+            self.running = True
             self.__nextFrame()
     def update(self):
-        if self.state:
+        if self.running and self.state:
             timelapsed = pygame.time.get_ticks() - self.__time
             if timelapsed > self.stateDelta:
                 self.__nextFrame()
 
-class Tomato(_SpriteFSM):
+class Tomato(SpriteFSM):
     def __init__(self, *groups):
         super().__init__('tomato', 6, 'blink', *groups)

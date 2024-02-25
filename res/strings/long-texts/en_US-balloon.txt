@@ -1,0 +1,22 @@
+Ciao,  my   name   is   Pymodoro. Sono un pomodoro... a 
+tomato made in python, and I am here... hmmm... como si
+dice "aiutarti a lavorare"? Aaaah, help you to work.
+
+You can set your tempo di lavoro, tempo di riposo
+and choose to have long pausa or not. The parametri 
+are:
+    
+Work time: 25 minuti di lavoro. You can work for
+25 minutes before resting. You can change the time.
+    
+Break time: 5 minuti di riposo. After your work time
+you can rest for 5 minutes before going to work again.
+You can also change this time.
+
+Cycles before a long break: if zero there'll be no long
+breaks, otherwise you can choose how many 
+(work + break) cycles you want before taking a long 
+break.
+
+Long break time: if zero there'll be no long breaks,
+otherwise you can set here the time of your long break.
