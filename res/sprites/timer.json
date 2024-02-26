@@ -1,0 +1,14 @@
+{
+    "name": "timer",
+    "frame_size": [128, 128],
+    "idle": {
+        "frames": [0],
+        "delta": [1000],
+        "repeat": -1
+    },
+    "run": {
+        "frames": [1, 2],
+        "delta": [994, 994],
+        "repeat": -1
+    }
+}

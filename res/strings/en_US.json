@@ -3,5 +3,8 @@
     "breaktime"         : "Break time:",
     "cblbreak"          : "Cycles B. L. B.:",
     "lbtime"            : "L. B. time:",
-    "lt-balloon"        : "en_US-balloon.txt"
+    "lt-balloon"        : "en_US-balloon.txt",
+    "working"           : "Working Time",
+    "break"             : "Break time",
+    "longbreak"         : "Long break"
 }

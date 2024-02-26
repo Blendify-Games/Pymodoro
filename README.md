@@ -23,7 +23,9 @@ Consider reading what the Pymodoro 🍅 has to say to you, it'll explain to you 
 
 ### The Show Scene
 
-Not yet implemented
+In this scene you have a timer with the cycle description.
+
+<img src=screenshots/show.png>
 
 ## How to run Pymodoro on my computer?
 

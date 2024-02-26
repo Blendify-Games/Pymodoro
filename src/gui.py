@@ -251,10 +251,16 @@ class ChatBalloon(SpriteFSM):
                 g.add(self.text)
 
 class Label(pygame.sprite.Sprite):
-    def __init__(self, text, color, *groups):
+    def __init__(self, text, color, size, *groups):
         super().__init__(*groups)
-        font = pygame.font.Font(get_pixeloid_light_font_res())
-        self.image = font.render(text, True, color)
+        self.font = pygame.font.Font(get_pixeloid_light_font_res(), size)
+        self.color = color
+        self.image = self.font.render(text, True, self.color)
         self.rect = self.image.get_rect()
+    def setText(self, text:str):
+        x, y = self.rect.topleft
+        self.image = self.font.render(text, True, self.color)
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (x, y)
     def setPos(self, x, y):
         self.rect.topleft = (x, y)
