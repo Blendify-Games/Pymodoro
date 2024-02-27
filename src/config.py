@@ -24,7 +24,7 @@ LTXDIR          = os.path.join(STRDIR, 'long-texts')
 def _get_language():
     l, e = locale.getdefaultlocale()
     if os.path.exists(os.path.join(STRDIR, f'{l}.json')):
-        return (l, e)
+        return (l, 'UTF-8')
     else:
         return ('en_US', 'UTF-8')
 LANGUAGE, ENCODING = _get_language()
