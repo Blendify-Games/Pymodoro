@@ -1,5 +1,5 @@
 import pygame
-from config import get_sprite_res
+from config import get_icon_res
 
 def tiledsurf_slice(surf: pygame.Surface, 
                      tilewh: tuple) -> 'SurfList':
@@ -28,8 +28,6 @@ def tiledsurf_slice_from_path(path: str,
     return tiledsurf_slice(surf, tilewh)
 
 def display_set_icon():
-    spi = get_sprite_res('tomato')
-    s = pygame.image.load(spi['imgpath'])
+    s = pygame.image.load(get_icon_res())
     s.convert_alpha()
-    surfs = tiledsurf_slice(s, spi['frame_size'])
-    pygame.display.set_icon(surfs[0])
+    pygame.display.set_icon(s)

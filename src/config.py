@@ -3,13 +3,13 @@ import json
 import os
 
 APP_NAME        = 'Pymodoro'
-APP_VERSION     = 'not released yet'
+APP_VERSION     = 'v1.0'
 APP_DEV         = 'Blendify Games'
 SCREEN_SIZE     = (1024, 768)
 
 # res
 WD              = os.path.dirname(os.path.realpath(__file__))
-RESDIR          = os.path.join(WD, '..', 'res')
+RESDIR          = os.path.join(WD, 'res')
 FONTDIR         = os.path.join(RESDIR, 'fonts')
 SPRDIR          = os.path.join(RESDIR, 'sprites')
 SOUNDDIR        = os.path.join(RESDIR, 'sounds')
@@ -78,6 +78,9 @@ def get_infobutton_res() -> str:
 
 def get_field_res() -> str:
     return os.path.join(SPRDIR, 'field.png')
+
+def get_icon_res() -> str:
+    return os.path.join(RESDIR, 'icon.png')
 
 def get_sprite_res(name:str) -> dict:
     '''get a dict containing sprite information like animation
