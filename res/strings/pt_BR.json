@@ -1,0 +1,13 @@
+{
+    "worktime"          : "Trabalho:",
+    "breaktime"         : "Descanso:",
+    "cblbreak"          : "Ciclos A. D. L.:",
+    "lbtime"            : "Tempo de D. L.:",
+    "lt-balloon"        : "pt_BR-balloon.txt",
+    "working"           : "Trabalhando",
+    "break"             : "Descansando",
+    "longbreak"         : "Descanso longo",
+    "m_times"           : "vezes",
+    "1_time"            : "vez",
+    "untilnow"          : "Até agora a quantidade de ciclos:"
+}

@@ -1,0 +1,26 @@
+Ciao,  meu  nome  é  Pymodoro. Sono  un pomodoro... um
+um tomate feito em  python e estou aqui para... hmmm...
+como si dice "aiutarti a lavorare"?  Aaaah, te ajudar a 
+trabalhar.
+
+Você  pode  ajustar  seu  tempo  di  lavoro,  tempo  di 
+riposo  e  escolher  ter  uma  longa  pausa  ou não. Os 
+parametri são:
+
+Trabalho:  25  minuti  di  lavoro.  Você   pode  trabalhar
+por  25  minutos antes de descansar. Você pode mudar
+isso.
+
+Descanso:  5  minuti  di  riposo.  Depois do seu período
+trabalhando você pode descansar por 5 minutos antes
+de começar a trabalhar de novo. Você pode mudar isto
+também.
+
+Ciclos antes do descanso longo:  se  o  valor for  zero
+não haverá descanso longo, caso  contrário aqui você
+irá selecionar quantos ciclos de (trabalho + descanso) 
+antes de ter um descanso longo.
+
+Tempo de descanso longo:  se  o  valor  for  zero  não 
+haverá  descanso  longo,  caso  contrário  você  pode 
+ajustar o tempo de cada descanso longo que tiver.

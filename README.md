@@ -1,34 +1,74 @@
-# Pymodoro
+# Pymodoro 🍅 (see in [🇺🇸](./README-en_US.md))
 
-A simple pomodoro app implemented using [pygame-ce](https://github.com/pygame-community/pygame-ce) and retrogame art concept. This is supposed to make you feel happy and to help you control your time while you work. 😊
+Uma implementação simples de pomodoro usando [pygame-ce](https://github.com/pygame-community/pygame-ce) e estética retrogame. Esta aplicação tem a função de te deixar feliz e também controlar seu tempo enquanto você trabalha. 😊
 
-Check this [section](#how-to-run-pymodoro-on-my-computer) to learn how to run this application.
+Veja esta [seção](#como-rodar-o-pymodoro-no-meu-computador) para entender como rodar esta aplicação.
 
-The pymodoro concept is simple, you can adjust two or four parameters and then you hit the play button. The parameters are "Work Time", "Break Time", "Long Break After Work Cycles" and "Long Break Time".
+O Pymodoro é conceituralmente simples, você ajusta dois ou quatro parâmetros e depois você aperta o botão de play. Os parâmetros são "Trabalho", "Descanso", "Ciclos antes do descanso longo" e "Tempo de descanso longo".
 
-|    Parameter               |                                          Description                                    |   Default Value   |
-|----------------------------|-----------------------------------------------------------------------------------------|-------------------|
-| Work Time                  | The time you'll spent working in minutes.                                               | 25 minutes        |
-| Break Time                 | The time you'll be using for resting before restarting the working cycle.               | 5 minutes         |
-| Cycles Before a Long Break | Number of Work + Break cycles before taking a long break. If zero, then no long breaks. | 0 minutes (unset) |
-| Long Break Time            | The time you'll be taking a long break before restarting the whole Work + Break thing.  | 0 minutes (unset) |
+| Parâmetro | Descrição | Valor Padrão |
+|-----------|-----------|--------------|
+| Trabalho | O tempo que você deseja gastar trabalhando em minutos | 25 minutos |
+| Descanso | O tempo que você deseja gastar descansando em minutos antes de recomeçar o ciclo de trabalho | 5 minutos |
+| Ciclos antes do descanso longo | Número de ciclos de (trabalho + descanso) antes de ter um descanso longo. Se zero, não haverá descanso longo | 0 minutos (desabilitado) |
+| Tempo de descanso longo | O tempo que você irá gastar a cada descanso longo em minutos. Se zero, não haverá descanso longo | 0 minutos (desabilitado) |
 
-## Using the Pymodoro
+## Usando o Pymodoro
 
-### The Setup Scene
+### A cena de ajustes
 
-Consider reading what the Pymodoro 🍅 has to say to you, it'll explain to you how to setup and use the application: 
+Considere ler o que o Pymodoro 🍅 tem a dizer a você, ele irá explicar como ajustar e usar a aplicação:
 
-<img src=screenshots/setup.png>
+<img src=screenshots/setup-pt_BR.png>
 
-### The Show Scene
+### The cena de visualização
 
-In this scene you have a timer with the cycle description.
+Nesta cena você irá ver um temporizador com a descrição do ciclo. O botão de informação lhe dará as estatísticas de uso do Pymodoro.
 
-<img src=screenshots/show.png>
+<img src=screenshots/show-pt_BR.png>
 
-## How to run Pymodoro on my computer?
+## Como rodar o Pymodoro no meu computador?
 
-### Downloading a release
+Você pode escolher duas formas de executar o Pymodoro. Uma forma é [baixando o *release*](#baixando-um-release-executável) que constitui uma forma rápida e fácil, entretanto, pode não existir uma versão adequada para o seu sistema operacional. A outra forma é [baixando o repositório](#baixando-o-repositório) que pode necessitar um pouco mais de experiência com a ambientação da linguagem de programação Python.
 
-### Downloading the repository
+### Baixando um *release* executável
+
+### Baixando o repositório
+Esta aplicação foi desenvolvida utilizando python 3.12.1. Após a instalação do python, é recomendável que você crie um ambiente virtual de execução para as bibliotecas utilizadas neste projeto. Utilize o virtualenv para tal. Faça a instalação do virtualenv e, dentro da pasta do repositório Pymodoro, crie um ambiente virtual. Acesse um terminal e digite:
+
+```bash
+> pip install virtualenv     # instalação do virtualenv
+> virtualenv .venv           # criação do ambiente virtual
+#------ Alternativamente
+> pip3 install virtualenv    # utilize pip3 quando há versões 2.* e 3.* do python
+> python3 -m venv .venv      # criação do ambiente virtual
+```
+
+Após a primeira execução, para rodar o Pymodoro, repita apenas os passos 1 e 3.
+
+1. Ative o ambiente virtual
+
+    ```bash
+    # No windows faça
+    > .\.venv\Scripts\activate
+
+    # No GNU/Linux ou outros SOs unix-like faça
+    $ source ./.venv/bin/activate
+    ```
+    * Observe que ao entrar no ambiente virtual, algo como `(.venv)` irá aparecer no início da linha. Isto indica que o ambiente virtual está ativado. Para desativar, digite `deactivate`.
+
+2. Caso seja a primeira execução neste ambiente virtual, instale as dependências necessárias:
+    
+    ```bash
+    > pip install -r requirements.txt
+    #------ Alternativamente
+    > pip3 install -r requirements.txt      # utilize pip3 quando há versões 2.* e 3.* do python
+    ```
+
+3. Entre na pasta do `src` e execute o Pymodoro:
+
+    ```bash
+    > python main.py
+    #------ Alternativamente
+    > python3 main.py                       # utilize python3 quando há versões 2.* e 3.* do python
+    ```
