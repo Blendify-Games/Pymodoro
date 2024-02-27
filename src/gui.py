@@ -9,7 +9,7 @@ from config import (
     get_buttons_res, get_button_sound_res, 
     get_field_res, get_number_imgfont_res,
     get_startbutton_res, get_pixeloid_font_res,
-    get_pixeloid_light_font_res
+    get_pixeloid_light_font_res, get_infobutton_res
 )
 from sprites import SpriteFSM
 from util import tiledsurf_slice_from_path
@@ -193,6 +193,31 @@ class StartButton(_Button):
         super().onButtonDown()
         self.sound.play()
 
+_INFOBUTTON_FRAMES = None
+def _get_infobutton_frames() -> 'SurfList':
+    global _INFOBUTTON_FRAMES
+    if not _INFOBUTTON_FRAMES:
+        _INFOBUTTON_FRAMES = tiledsurf_slice_from_path(
+            get_infobutton_res(), (32, 32), 4
+        )
+    return _INFOBUTTON_FRAMES
+
+_I_BUTTON_SOUND = None
+def _get_info_button_sound() -> pygame.mixer.Sound:
+    global _I_BUTTON_SOUND
+    if not _I_BUTTON_SOUND:
+        _I_BUTTON_SOUND = pygame.mixer.Sound(get_button_sound_res(3))
+    return _I_BUTTON_SOUND
+
+class InfoButton(_Button):
+    def __init__(self, *groups):
+        self.sound = _get_info_button_sound()
+        frames = _get_infobutton_frames()
+        super().__init__(frames[0], frames[1], *groups)
+    def onButtonDown(self):
+        super().onButtonDown()
+        self.sound.play()
+
 class _ChatBalloonText(pygame.sprite.Sprite):
     def __init__(self, text, maxwh):
         super().__init__()
@@ -203,8 +228,10 @@ class _ChatBalloonText(pygame.sprite.Sprite):
         self.tsurfRect = self.tsurf.get_rect()
         if self.tsurfRect.height > maxwh[1]:
             self.ssrect = pygame.Rect(0, 0, *maxwh)
+            self.overflow = True
         else:
             self.ssrect = self.tsurfRect
+            self.overflow = False
         self.image = self.tsurf.subsurface(self.ssrect)
         self.rect = self.image.get_rect()
     def rollDown(self):
@@ -235,20 +262,55 @@ class ChatBalloon(SpriteFSM):
 
         self.time = pygame.time.get_ticks()
         self.setPos(0, 0)
+
+        self.contentCreated = False
+        self.terminate = False
     def setPos(self, x, y):
         self.rect.topleft = (x, y)
         tr = self.rect.topright
         self.arrowup.rect.topleft = (tr[0], tr[1])
         self.arrowdown.rect.topleft = (tr[0], tr[1]+32)
         self.text.rect.topleft = (x + 16, y + 8)
+    def __removeFromGps(self, item):
+        for g in self.rendergps:
+            g.remove(item)
+    def setText(self, text:str):
+        x, y = self.text.rect.topleft
+        self.text.kill()
+        self.__removeFromGps(self.text)
+        self.text = _ChatBalloonText(text, 
+                    (self.rect.width - 16, self.rect.height - 16))
+        self.text.rect.topleft = x, y
+        self.arrowup.setButtonDownListener(self.text.rollUp)
+        self.arrowdown.setButtonDownListener(self.text.rollDown)
+        if self.text.overflow:
+            for g in self.rendergps:
+                if not self.arrowdown in g:
+                    g.add(self.arrowdown)
+                if not self.arrowup in g:
+                    g.add(self.arrowup)
+        for g in self.rendergps:
+            g.add(self.text)
+    def kill(self):
+        self.arrowup.kill()
+        self.__removeFromGps(self.arrowup)
+        self.arrowdown.kill()
+        self.__removeFromGps(self.arrowdown)
+        self.text.kill()
+        self.__removeFromGps(self.text)
+        self.callState('close')
+        self.terminate = True
     def update(self):
         super().update()
-        dt = pygame.time.get_ticks() - self.time
-        if dt > 100*15:
+        if not self.running and not self.contentCreated:
             for g in self.rendergps:
-                g.add(self.arrowdown)
-                g.add(self.arrowup)
+                if self.text.overflow:
+                    g.add(self.arrowdown)
+                    g.add(self.arrowup)
                 g.add(self.text)
+            self.contentCreated = True
+        if self.terminate and not self.running:
+            self.__removeFromGps(self)
 
 class Label(pygame.sprite.Sprite):
     def __init__(self, text, color, size, *groups):

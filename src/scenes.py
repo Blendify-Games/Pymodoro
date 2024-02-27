@@ -1,12 +1,13 @@
 import config
 import event_handler as evth
 import pygame
+import util
 
 from pomodoro import PomodoroSocket
 from sprites import Tomato
 from gui import (
     ChatBalloon, NaturalNumberSelector, 
-    StartButton, Label
+    StartButton, Label, InfoButton
 )
 
 class Scene():
@@ -71,6 +72,8 @@ class SetupPomodoroScene(Scene):
         self.startButton.setButtonUpListener(self.gotoNextScene)
     def gotoNextScene(self):
         pygame.mixer.music.fadeout(1000)
+        for s in self.rendergp:
+            s.kill()
         self.rendergp.empty()
         boot_scene(
             ShowPomodoroScene, 
@@ -95,6 +98,23 @@ class ShowPomodoroScene(Scene):
         self.pomodoro.startPomodoro(*pomodoro_params)
         self.tomato = Tomato(self.rendergp)
         self.tomato.rect.center = sw//2 + 190, sh//2
+        self.infoButton = InfoButton(self.rendergp)
+        self.infoButton.rect.bottomright = (sw - 32, sh - 48)
+        self.infoBalloon = None
+        self.infoButton.setButtonUpListener(self.toggleInfoBalloon)
+        self.pomodoroStatus = self.pomodoro.statusToStr()
+        self.pomodoro.setStatusUpdateListener(self.__onPomodoroStatusChange)
+    def __onPomodoroStatusChange(self, status:str):
+        self.pomodoroStatus = status
+        if self.infoBalloon:
+            self.infoBalloon.setText(self.pomodoroStatus)
+    def toggleInfoBalloon(self):
+        if not self.infoBalloon:
+            self.infoBalloon = ChatBalloon(self.pomodoroStatus, self.rendergp)
+            self.infoBalloon.setPos(32, 576)
+        elif not self.infoBalloon.running:
+            self.infoBalloon.kill()
+            self.infoBalloon = None
     def build(self):
         self.screen.fill((100, 0, 0))
     def update(self):
@@ -106,6 +126,7 @@ class ShowPomodoroScene(Scene):
 class __SceneLoop():
     def __init__(self):
         self.screen = pygame.display.set_mode(config.SCREEN_SIZE)
+        util.display_set_icon()
         pygame.display.set_caption(config.get_caption())
         self.__runningScene = None
         evth.setup_listener({

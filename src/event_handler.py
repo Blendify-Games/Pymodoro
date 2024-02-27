@@ -45,7 +45,7 @@ class _EventHandler():
         self.listeners.append(evl)
     def rmListener(self, name: str):
         self.listeners = [
-            lst for lst in self.listeners if lst != name
+            lst for lst in self.listeners if lst.name != name
         ]
     def listen(self):
         for listener in self.listeners:

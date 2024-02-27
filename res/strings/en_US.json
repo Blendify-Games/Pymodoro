@@ -4,7 +4,10 @@
     "cblbreak"          : "Cycles B. L. B.:",
     "lbtime"            : "L. B. time:",
     "lt-balloon"        : "en_US-balloon.txt",
-    "working"           : "Working Time",
+    "working"           : "Working time",
     "break"             : "Break time",
-    "longbreak"         : "Long break"
+    "longbreak"         : "Long break",
+    "m_times"           : "times",
+    "1_time"            : "time",
+    "untilnow"          : "Until now the cycles ran:"
 }

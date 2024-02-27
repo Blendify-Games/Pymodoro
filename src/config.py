@@ -61,6 +61,9 @@ def get_number_imgfont_res() -> str:
 def get_clair_de_lune_res() -> str:
     return os.path.join(MUSDIR, f'clair_de_lune.ogg')
 
+def get_countdown_sound_res() -> str:
+    return os.path.join(SOUNDDIR, 'countdown.ogg')
+
 def get_button_sound_res(nref:int) -> str:
     return os.path.join(SOUNDDIR, f'button{nref}.ogg')
 
@@ -69,6 +72,9 @@ def get_buttons_res() -> str:
 
 def get_startbutton_res() -> str:
     return os.path.join(SPRDIR, 'startbutton.png')
+
+def get_infobutton_res() -> str:
+    return os.path.join(SPRDIR, 'infobutton.png')
 
 def get_field_res() -> str:
     return os.path.join(SPRDIR, 'field.png')
