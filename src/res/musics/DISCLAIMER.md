@@ -7,7 +7,7 @@ Link: https://www.youtube.com/watch?v=ZNuSw6kffjU
 ```
 Original Title: Clair de Lune 8-bit Version
 Performer: Lily Blossom
-Original composition by: Charles Debussy in 1890, 
+Original composition by: Claude Debussy in 1890, 
                          third movement of Suite Bergamasque
 Accessed: Feb 21, 2024
 ```
