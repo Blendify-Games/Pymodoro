@@ -21,7 +21,7 @@ Considere ler o que o Pymodoro 🍅 tem a dizer a você, ele irá explicar como 
 
 <img src=screenshots/setup-pt_BR.png>
 
-### The cena de visualização
+### A cena de visualização
 
 Nesta cena você irá ver um temporizador com a descrição do ciclo. O botão de informação lhe dará as estatísticas de uso do Pymodoro.
 
