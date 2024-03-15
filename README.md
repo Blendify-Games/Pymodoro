@@ -23,7 +23,7 @@ Considere ler o que o Pymodoro 🍅 tem a dizer a você, ele irá explicar como 
 
 ### A cena de visualização
 
-Nesta cena você irá ver um temporizador com a descrição do ciclo. O botão de informação lhe dará as estatísticas de uso do Pymodoro.
+Nesta cena você irá ver um temporizador com a descrição do ciclo. O botão de informação lhe dará as estatísticas de uso do Pymodoro. O botão verde (⬅️) lhe possibilitará a voltar para a cena de ajustes do Pymodoro. Lembre-se de que, ao voltar, o progresso feito até agora no pomodoro vigente será perdido.
 
 <img src=screenshots/show-pt_BR.png>
 

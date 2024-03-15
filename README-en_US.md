@@ -23,7 +23,8 @@ Consider reading what the Pymodoro 🍅 has to say to you, it'll explain to you 
 
 ### The show scene
 
-In this scene you have a timer with the cycle description. The info button will give you the statistics about the Pymodoro use.
+In this scene you have a timer with the cycle description. The info button will give you the statistics about the Pymodoro use. 
+The green button (⬅️) will allow you to return to the Pymodoro setup scene. Remember that when you go back to setup, the progress you've made so far in the current pomodoro will be lost.
 
 <img src=screenshots/show.png>
 
