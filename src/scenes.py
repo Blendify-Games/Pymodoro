@@ -7,7 +7,8 @@ from pomodoro import PomodoroSocket
 from sprites import Tomato
 from gui import (
     ChatBalloon, NaturalNumberSelector, 
-    StartButton, Label, InfoButton
+    StartButton, Label, InfoButton,
+    BackButton
 )
 
 class Scene():
@@ -22,10 +23,15 @@ class Scene():
         raise NotImplemented
 
 class SetupPomodoroScene(Scene):
-    def __init__(self, screen: pygame.Surface):
+    def __init__(self, screen: pygame.Surface, pomodoro_params:tuple=None):
         super().__init__(screen, 'Setup Pomodoro')
         pygame.mixer.music.load(config.get_clair_de_lune_res())
         pygame.mixer.music.play(loops=-1)
+
+        if pomodoro_params:
+            pparams = pomodoro_params
+        else:
+            pparams = (25, 5, 0, 0)
         
         sw, sh = config.SCREEN_SIZE
 
@@ -35,17 +41,19 @@ class SetupPomodoroScene(Scene):
         self.tomato.rect.center = sw//2, sh//2
 
         self.nnField1 = NaturalNumberSelector(self.rendergp)
-        self.nnField1.setValue(25)
+        self.nnField1.setValue(pparams[0])
         self.nnField1.setMinValue(1)
         self.nnField1.setMaxValue(100)
         self.nnField1.setPos(96, 96)
         self.nnField2 = NaturalNumberSelector(self.rendergp)
-        self.nnField2.setValue(5)
+        self.nnField2.setValue(pparams[1])
         self.nnField2.setMinValue(1)
         self.nnField2.setPos(320, 96)
         self.nnField3 = NaturalNumberSelector(self.rendergp)
+        self.nnField3.setValue(pparams[2])
         self.nnField3.setPos(544, 96)
         self.nnField4 = NaturalNumberSelector(self.rendergp)
+        self.nnField4.setValue(pparams[3])
         self.nnField4.setPos(768, 96)
         
         self.cballoon = ChatBalloon(config.get_string('lt-balloon'), self.rendergp)
@@ -93,6 +101,7 @@ class ShowPomodoroScene(Scene):
         super().__init__(screen, 'Show Pomodoro')
         sw, sh = config.SCREEN_SIZE
         self.rendergp = pygame.sprite.Group()
+        self.pParams = pomodoro_params
         self.pomodoro = PomodoroSocket(self.rendergp)
         self.pomodoro.setPos(200, (sh//2)-160)
         self.pomodoro.startPomodoro(*pomodoro_params)
@@ -100,14 +109,22 @@ class ShowPomodoroScene(Scene):
         self.tomato.rect.center = sw//2 + 190, sh//2
         self.infoButton = InfoButton(self.rendergp)
         self.infoButton.rect.bottomright = (sw - 32, sh - 48)
-        self.infoBalloon = None
+        self.backButton = BackButton(self.rendergp)
         self.infoButton.setButtonUpListener(self.toggleInfoBalloon)
+        self.backButton.rect.topleft = (32, 32)
+        self.backButton.setButtonUpListener(self.goBackToSetupScene)
+        self.infoBalloon = None
         self.pomodoroStatus = self.pomodoro.statusToStr()
         self.pomodoro.setStatusUpdateListener(self.__onPomodoroStatusChange)
     def __onPomodoroStatusChange(self, status:str):
         self.pomodoroStatus = status
         if self.infoBalloon:
             self.infoBalloon.setText(self.pomodoroStatus)
+    def goBackToSetupScene(self):
+        for s in self.rendergp:
+            s.kill()
+        self.rendergp.empty()
+        boot_scene(SetupPomodoroScene, self.pParams)
     def toggleInfoBalloon(self):
         if not self.infoBalloon:
             self.infoBalloon = ChatBalloon(self.pomodoroStatus, self.rendergp)

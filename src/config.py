@@ -76,6 +76,9 @@ def get_startbutton_res() -> str:
 def get_infobutton_res() -> str:
     return os.path.join(SPRDIR, 'infobutton.png')
 
+def get_backbutton_res() -> str:
+    return os.path.join(SPRDIR, 'backbutton.png')
+
 def get_field_res() -> str:
     return os.path.join(SPRDIR, 'field.png')
 

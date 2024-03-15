@@ -9,7 +9,8 @@ from config import (
     get_buttons_res, get_button_sound_res, 
     get_field_res, get_number_imgfont_res,
     get_startbutton_res, get_pixeloid_font_res,
-    get_pixeloid_light_font_res, get_infobutton_res
+    get_pixeloid_light_font_res, get_infobutton_res,
+    get_backbutton_res
 )
 from sprites import SpriteFSM
 from util import tiledsurf_slice_from_path
@@ -213,6 +214,31 @@ class InfoButton(_Button):
     def __init__(self, *groups):
         self.sound = _get_info_button_sound()
         frames = _get_infobutton_frames()
+        super().__init__(frames[0], frames[1], *groups)
+    def onButtonDown(self):
+        super().onButtonDown()
+        self.sound.play()
+
+_BACKBUTTON_FRAMES = None
+def _get_backbutton_frames() -> 'SurfList':
+    global _BACKBUTTON_FRAMES
+    if not _BACKBUTTON_FRAMES:
+        _BACKBUTTON_FRAMES = tiledsurf_slice_from_path(
+            get_backbutton_res(), (32, 32), 2
+        )
+    return _BACKBUTTON_FRAMES
+
+_B_BUTTON_SOUND = None
+def _get_back_button_sound() -> pygame.mixer.Sound:
+    global _B_BUTTON_SOUND
+    if not _B_BUTTON_SOUND:
+        _B_BUTTON_SOUND = pygame.mixer.Sound(get_button_sound_res(4))
+    return _B_BUTTON_SOUND
+
+class BackButton(_Button):
+    def __init__(self, *groups):
+        self.sound = _get_back_button_sound()
+        frames = _get_backbutton_frames()
         super().__init__(frames[0], frames[1], *groups)
     def onButtonDown(self):
         super().onButtonDown()

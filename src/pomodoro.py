@@ -71,7 +71,7 @@ class Pomodoro(pygame.sprite.Sprite):
         secondsLap = (minutes * 60) - (self.__timeLap // 1000)
         mins, secs = divmod(secondsLap, 60)
         self.__nextrText = '{:02d}:{:02d}'.format(mins, secs)
-        #print(f'{self.__stateName}: {self.__rText}', end=' '*10 + '\r')
+        print(f'{self.__stateName}: {self.__rText}', end=' '*10 + '\r')
         return self.__timeLap < (minutes * 60000)
     def __render(self):
         if self.__nextrText != self.__rText:
