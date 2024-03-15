@@ -34,7 +34,7 @@ You can choose two ways to run Pymodoro. One way is by [downloading the release]
 
 ### Downloading a release
 
-In the [Github](https://github.com/Blendify-Games/Pymodoro) repository, go to the right corner and look for the link `Pomodoro v1.0`. Choose the release version you want, whether for Windows or Linux (both only for x86_64). Then, simply extract the file and click on it to run Pymodoro.
+In the [Github](https://github.com/Blendify-Games/Pymodoro) repository, go to the right corner and look for the link `Pomodoro v1.0.1`. Choose the release version you want, whether for Windows or Linux (both only for x86_64). Then, simply extract the file and click on it to run Pymodoro.
 
 ### Downloading the repository
 

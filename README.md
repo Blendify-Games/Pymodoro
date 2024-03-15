@@ -33,7 +33,7 @@ Você pode escolher duas formas de executar o Pymodoro. Uma forma é [baixando o
 
 ### Baixando um *release* executável
 
-No repositório do [Github](https://github.com/Blendify-Games/Pymodoro) vá no canto direito e busque pelo link `Pomodoro v1.0`. Escolha a versão do *release* que deseja, se para **Windows** ou **Linux** (ambos apenas para x86_64). Depois, basta descompatar e clicar no arquivo para executar o Pymodoro.
+No repositório do [Github](https://github.com/Blendify-Games/Pymodoro) vá no canto direito e busque pelo link `Pomodoro v1.0.1`. Escolha a versão do *release* que deseja, se para **Windows** ou **Linux** (ambos apenas para x86_64). Depois, basta descompatar e clicar no arquivo para executar o Pymodoro.
 
 ### Baixando o repositório
 Esta aplicação foi desenvolvida utilizando python 3.12.1. Após a instalação do python, é recomendável que você crie um ambiente virtual de execução para as bibliotecas utilizadas neste projeto. Utilize o virtualenv para tal. Faça a instalação do virtualenv e, dentro da pasta do repositório Pymodoro, crie um ambiente virtual. Acesse um terminal e digite:
