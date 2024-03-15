@@ -29,6 +29,13 @@ def _get_language():
         return ('en_US', 'UTF-8')
 LANGUAGE, ENCODING = _get_language()
 
+def change_lang(lang):
+    global LANGUAGE
+    if os.path.exists(os.path.join(STRDIR, f'{lang}.json')):
+        LANGUAGE = lang
+    else:
+        LANGUAGE = 'en_US'
+
 def _load_long_text(name: str) -> str:
     path = os.path.join(LTXDIR, name)
     with open(path, encoding=ENCODING) as ftxt:
