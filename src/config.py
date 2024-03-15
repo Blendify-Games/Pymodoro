@@ -3,7 +3,7 @@ import json
 import os
 
 APP_NAME        = 'Pymodoro'
-APP_VERSION     = 'v1.0'
+APP_VERSION     = 'v1.0.1'
 APP_DEV         = 'Blendify Games'
 SCREEN_SIZE     = (1024, 768)
 
