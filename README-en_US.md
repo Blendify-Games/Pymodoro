@@ -30,11 +30,17 @@ The green button (⬅️) will allow you to return to the Pymodoro setup scene. 
 
 ## How to run Pymodoro on my computer?
 
-You can choose two ways to run Pymodoro. One way is by [downloading the release](#downloading-a-release), which is a quick and easy method; however, there may not be a suitable version for your operating system. The other way is by [downloading the repository](#downloading-the-repository), which may require a bit more experience with setting up the Python programming language environment.
+You can choose one of three ways to run Pymodoro. The first way is by [downloading the release](#downloading-a-release), which is a quick and easy method; however, there may not be a suitable version for your operating system. The second way is [acessing the *webapp*](#acessing-the-webapp), which can be very convenient if you are not interested in running Pymodoro locally. The third way is by [downloading the repository](#downloading-the-repository), which may require a bit more experience with setting up the Python programming language environment.
 
 ### Downloading a release
 
 In the [Github](https://github.com/Blendify-Games/Pymodoro) repository, go to the right corner and look for the link `Pomodoro v1.0.1`. Choose the release version you want, whether for Windows or Linux (both only for x86_64). Then, simply extract the file and click on it to run Pymodoro.
+
+### Acessing the *webapp*
+
+The Pymodoro as *webapp* was not tested enough. However it is known that it may work quite well running in Chrome, Firefox and Edge. Access the link below:
+
+> [https://www.blendifygames.com.br/pymodoro](https://www.blendifygames.com.br/pymodoro)
 
 ### Downloading the repository
 

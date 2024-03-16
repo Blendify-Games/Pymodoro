@@ -29,11 +29,17 @@ Nesta cena você irá ver um temporizador com a descrição do ciclo. O botão d
 
 ## Como rodar o Pymodoro no meu computador?
 
-Você pode escolher duas formas de executar o Pymodoro. Uma forma é [baixando o *release*](#baixando-um-release-executável) que constitui uma forma rápida e fácil, entretanto, pode não existir uma versão adequada para o seu sistema operacional. A outra forma é [baixando o repositório](#baixando-o-repositório) que pode necessitar um pouco mais de experiência com a ambientação da linguagem de programação Python.
+Você pode escolher uma das três formas de executar o Pymodoro. Uma forma é [baixando o *release*](#baixando-um-release-executável) que constitui uma forma rápida e fácil, entretanto, pode não existir uma versão adequada para o seu sistema operacional. A outra forma é [acessando o *webapp*](#acessando-o-webapp), que pode ser bem cômodo caso não tenha interesse de rodar o Pymodoro localmente. A última forma é [baixando o repositório](#baixando-o-repositório) que pode necessitar um pouco mais de experiência com a ambientação da linguagem de programação Python.
 
 ### Baixando um *release* executável
 
 No repositório do [Github](https://github.com/Blendify-Games/Pymodoro) vá no canto direito e busque pelo link `Pomodoro v1.0.1`. Escolha a versão do *release* que deseja, se para **Windows** ou **Linux** (ambos apenas para x86_64). Depois, basta descompatar e clicar no arquivo para executar o Pymodoro.
+
+### Acessando o *webapp*
+
+O Pymodoro via *webapp* foi pouco testado. Entretanto sabe-se que tende a funcionar bem no Chrome, Firefox e Edge. Acesse o link abaixo:
+
+> [https://www.blendifygames.com.br/pymodoro](https://www.blendifygames.com.br/pymodoro)
 
 ### Baixando o repositório
 Esta aplicação foi desenvolvida utilizando python 3.12.1. Após a instalação do python, é recomendável que você crie um ambiente virtual de execução para as bibliotecas utilizadas neste projeto. Utilize o virtualenv para tal. Faça a instalação do virtualenv e, dentro da pasta do repositório Pymodoro, crie um ambiente virtual. Acesse um terminal e digite:
