@@ -1,8 +1,8 @@
-import asyncio
 import config
 import event_handler as evth
 import pygame
 import util
+import sys
 
 from pomodoro import PomodoroSocket
 from sprites import Tomato
@@ -80,7 +80,10 @@ class SetupPomodoroScene(Scene):
         self.startButton.rect.bottomright = (sw - 32, sh - 48)
         self.startButton.setButtonUpListener(self.gotoNextScene)
     def gotoNextScene(self):
-        pygame.mixer.music.fadeout(1000)
+        if sys.platform == 'emscripten':
+            pygame.mixer.music.stop()
+        else:
+            pygame.mixer.music.fadeout(1000)
         for s in self.rendergp:
             s.kill()
         self.rendergp.empty()
