@@ -1,3 +1,4 @@
+import asyncio
 import config
 import event_handler as evth
 import pygame
@@ -145,7 +146,7 @@ class __SceneLoop():
         self.screen = pygame.display.set_mode(config.SCREEN_SIZE)
         util.display_set_icon()
         pygame.display.set_caption(config.get_caption())
-        self.__runningScene = None
+        self.runningScene = None
         evth.setup_listener({
             'type': evth.EVT_QUIT,
             'name': 'quit',
@@ -153,18 +154,17 @@ class __SceneLoop():
         })
         self.clock = pygame.time.Clock()
     def __stop(self):
-        self.__runningScene = None
+        self.runningScene = None
     def setScene(self, SceneClass: 'Scene.__class__', *args):
-        self.__runningScene = SceneClass(self.screen, *args)
-        self.__run()
-    def __run(self):
-        while self.__runningScene:
-            self.clock.tick(60)
-            self.__runningScene.update()
-            evth.event_listening()
-            pygame.display.flip()
+        self.runningScene = SceneClass(self.screen, *args)
+    def iterate(self):
+        self.clock.tick(60)
+        self.runningScene.update()
+        evth.event_listening()
+        pygame.display.flip()
 
 _SCENE_LOOP = __SceneLoop()
 
-def boot_scene(SceneClass: 'Scene.__class__', *args):
+def boot_scene(SceneClass: 'Scene.__class__', *args) -> '_SCENE_LOOP':
     _SCENE_LOOP.setScene(SceneClass, *args)
+    return _SCENE_LOOP
